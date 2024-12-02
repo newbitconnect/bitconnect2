@@ -128,7 +128,45 @@
         }
     }
 </script>
+<div class="section">
+    <h2>Top Holders</h2>
+    <p>Discover the top holders of Bitconnect 2.0 tokens:</p>
+    <table id="holdersTable" style="width: 80%; margin: 0 auto; border-collapse: collapse; text-align: left;">
+        <thead>
+            <tr style="background-color: #f4f4f4;">
+                <th style="padding: 10px; border: 1px solid #ddd;">Rank</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">Address</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">Tokens Held</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be dynamically added here -->
+        </tbody>
+    </table>
+</div>
+<script>
+    const holders = [
+        { rank: 1, address: '0x123...abc', tokens: 500000 },
+        { rank: 2, address: '0x456...def', tokens: 400000 },
+        { rank: 3, address: '0x789...ghi', tokens: 300000 },
+        { rank: 4, address: '0xabc...jkl', tokens: 200000 },
+        { rank: 5, address: '0xdef...mno', tokens: 100000 },
+    ];
 
+    function loadHolders() {
+        const tableBody = document.getElementById('holdersTable').getElementsByTagName('tbody')[0];
+        holders.forEach(holder => {
+            const row = tableBody.insertRow();
+            row.innerHTML = `
+                <td style="padding: 10px; border: 1px solid #ddd;">${holder.rank}</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">${holder.address}</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">${holder.tokens.toLocaleString()}</td>
+            `;
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadHolders);
+</script>
     <div class="section">
         <img src="bitconnect2-logo.png" alt="Tokenomics Logo">
         <h2>Tokenomics</h2>
@@ -162,7 +200,6 @@
     <h2>Download Whitepaper</h2>
     <a href="Bitconnect2_Whitepaper.pdf" class="button" download>Download Whitepaper</a>
 </div>
-
     <footer>
         <p>Bitconnect 2.0 &copy; 2024 | This project is purely for entertainment purposes. <a href="#">Legal Notice</a></p>
     </footer>
