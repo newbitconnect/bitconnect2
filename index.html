@@ -42,9 +42,10 @@
             animation: fadeIn 2s ease-in-out;
         }
         .section img {
-            width: 100px;
+            width: 100%;
+            max-width: 500px;
             margin-bottom: 10px;
-            animation: bounce 2s infinite;
+            border-radius: 8px;
         }
         .button {
             display: inline-block;
@@ -83,15 +84,11 @@
             0% { transform: translateY(-100%); opacity: 0; }
             100% { transform: translateY(0); opacity: 1; }
         }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
     </style>
 </head>
 <body>
     <header>
-        <img src="logo.png" alt="Bitconnect 2.0 Logo">
+        <img src="bitconnect2-logo.png" alt="Bitconnect 2.0 Logo">
         <h1>Bitconnect 2.0</h1>
         <p>The Meme Token Renaissance</p>
     </header>
@@ -100,7 +97,7 @@
         <p>We celebrate the most iconic moments in crypto history with humor and community. Join the renaissance of the world's most memed token!</p>
     </div>
     <div class="section">
-        <img src="logo.png" alt="Tokenomics Logo">
+        <img src="bitconnect2-logo.png" alt="Tokenomics Logo">
         <h2>Tokenomics</h2>
         <p><b>Total Supply:</b> 28,000,000</p>
         <p><b>Distribution:</b></p>
@@ -113,6 +110,7 @@
         </ul>
     </div>
     <div class="section">
+        <img src="roadmap-dalle-image.png" alt="Roadmap Image">
         <h2>Roadmap</h2>
         <ul>
             <li><b>Q1:</b> Airdrop and initial mint</li>
@@ -122,6 +120,7 @@
         </ul>
     </div>
     <div class="section">
+        <img src="community-dalle-image.png" alt="Community Image">
         <h2>Join the Community</h2>
         <a href="#" class="button">Telegram</a>
         <a href="#" class="button">Twitter</a>
