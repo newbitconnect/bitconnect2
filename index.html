@@ -108,6 +108,28 @@
         <p>We celebrate the most iconic moments in crypto history with humor and community. Join the renaissance of the world's most memed token!</p>
     </div>
     <div class="section">
+    <h2>Token Calculator</h2>
+    <p>Enter the amount of SOL you want to exchange for Bitconnect 2.0 tokens:</p>
+    <input type="number" id="solAmount" placeholder="Enter amount of SOL" style="padding: 10px; width: 200px;">
+    <button onclick="calculateTokens()" class="button">Calculate</button>
+    <p id="result" style="margin-top: 20px; font-size: 1.2em; color: #333;"></p>
+</div>
+<script>
+    function calculateTokens() {
+        const rate = 1000; // Define the conversion rate (1 SOL = 1000 tokens)
+        const solAmount = document.getElementById("solAmount").value;
+        const result = document.getElementById("result");
+
+        if (solAmount && solAmount > 0) {
+            const tokens = solAmount * rate;
+            result.innerHTML = `You will receive <b>${tokens.toLocaleString()}</b> Bitconnect 2.0 tokens.`;
+        } else {
+            result.innerHTML = "Please enter a valid amount of SOL.";
+        }
+    }
+</script>
+
+    <div class="section">
         <img src="bitconnect2-logo.png" alt="Tokenomics Logo">
         <h2>Tokenomics</h2>
         <p><b>Total Supply:</b> 28,000,000</p>
