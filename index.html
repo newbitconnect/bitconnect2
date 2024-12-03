@@ -43,6 +43,11 @@ button:hover:enabled {
     margin-top: 10px;
 }
 
+p {
+    line-height: 1.5;
+}
+
+
         button {
     background-color: #007bff;
     color: white;
@@ -502,18 +507,21 @@ button:hover {
 </script>
     <div class="section">
     <h2>Stake Your Tokens</h2>
-    <p>Earn rewards by staking your Bitconnect 2.0 tokens!</p>
+    <p style="font-size: 1em; color: #555;">
+        Stake your Bitconnect 2.0 tokens to earn up to <b>10% annual rewards</b>. Start earning passive income while supporting the network. <span style="color: #007bff;">Staking functionality will be available soon!</span>
+    </p>
     <p id="globalStakingCounter" style="font-size: 1.2em; color: #007bff;">
         Total Staked Globally: <span id="globalStakedTokens">0</span>
     </p>
     <p id="userStakingCounter" style="font-size: 1.2em; color: #007bff;">
         Your Staked Tokens: <span id="userStakedTokens">0</span>
     </p>
-    <input type="number" id="stakeAmount" placeholder="Enter tokens to stake" style="padding: 10px; width: 200px;">
-    <button id="stakeTokens" class="button">Stake Tokens</button>
+    <input type="number" id="stakeAmount" placeholder="Enter tokens to stake" style="padding: 10px; width: 200px;" disabled>
+    <button id="stakeTokens" class="button" disabled>Stake Tokens</button>
     <button id="unstakeTokens" class="button" disabled>Unstake Tokens</button>
     <p id="stakingMessage" style="margin-top: 20px; font-size: 1.2em;"></p>
 </div>
+
 <script>
     let globalStakedTokens = 0; // Tokens apostados globalmente
     let userStakedTokens = 0; // Tokens apostados por el usuario actual
