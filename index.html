@@ -38,6 +38,31 @@ button:hover:enabled {
     background-color: #0056b3;
 }
 
+#stakingMessage {
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+        button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+button:hover:enabled {
+    background-color: #0056b3;
+}
+
         form {
     max-width: 400px;
     margin: 0 auto;
@@ -475,6 +500,92 @@ button:hover {
 
     document.addEventListener('DOMContentLoaded', loadHolders);
 </script>
+    <div class="section">
+    <h2>Stake Your Tokens</h2>
+    <p>Earn rewards by staking your Bitconnect 2.0 tokens!</p>
+    <p id="globalStakingCounter" style="font-size: 1.2em; color: #007bff;">
+        Total Staked Globally: <span id="globalStakedTokens">0</span>
+    </p>
+    <p id="userStakingCounter" style="font-size: 1.2em; color: #007bff;">
+        Your Staked Tokens: <span id="userStakedTokens">0</span>
+    </p>
+    <input type="number" id="stakeAmount" placeholder="Enter tokens to stake" style="padding: 10px; width: 200px;">
+    <button id="stakeTokens" class="button">Stake Tokens</button>
+    <button id="unstakeTokens" class="button" disabled>Unstake Tokens</button>
+    <p id="stakingMessage" style="margin-top: 20px; font-size: 1.2em;"></p>
+</div>
+<script>
+    let globalStakedTokens = 0; // Tokens apostados globalmente
+    let userStakedTokens = 0; // Tokens apostados por el usuario actual
+
+    document.getElementById("globalStakedTokens").textContent = globalStakedTokens;
+    document.getElementById("userStakedTokens").textContent = userStakedTokens;
+
+    // Función para apostar tokens
+    document.getElementById("stakeTokens").addEventListener("click", async () => {
+        const stakeAmount = parseInt(document.getElementById("stakeAmount").value, 10);
+        const stakingMessage = document.getElementById("stakingMessage");
+
+        if (!stakeAmount || stakeAmount <= 0) {
+            stakingMessage.style.color = "red";
+            stakingMessage.textContent = "Please enter a valid amount of tokens to stake.";
+            return;
+        }
+
+        // Simular la operación de staking
+        try {
+            userStakedTokens += stakeAmount;
+            globalStakedTokens += stakeAmount;
+
+            // Actualizar contadores visuales
+            document.getElementById("globalStakedTokens").textContent = globalStakedTokens;
+            document.getElementById("userStakedTokens").textContent = userStakedTokens;
+
+            // Habilitar el botón de retirar (unstake) si el usuario ha apostado tokens
+            document.getElementById("unstakeTokens").disabled = userStakedTokens === 0;
+
+            stakingMessage.style.color = "green";
+            stakingMessage.textContent = `Successfully staked ${stakeAmount} tokens!`;
+        } catch (err) {
+            console.error("Staking failed", err);
+            stakingMessage.style.color = "red";
+            stakingMessage.textContent = "Staking failed. Please try again.";
+        }
+    });
+
+    // Función para retirar tokens apostados
+    document.getElementById("unstakeTokens").addEventListener("click", async () => {
+        const stakingMessage = document.getElementById("stakingMessage");
+
+        if (userStakedTokens <= 0) {
+            stakingMessage.style.color = "red";
+            stakingMessage.textContent = "You have no staked tokens to unstake.";
+            return;
+        }
+
+        // Simular la operación de retirar staking
+        try {
+            globalStakedTokens -= userStakedTokens;
+
+            stakingMessage.style.color = "green";
+            stakingMessage.textContent = `Successfully unstaked ${userStakedTokens} tokens!`;
+
+            userStakedTokens = 0;
+
+            // Actualizar contadores visuales
+            document.getElementById("globalStakedTokens").textContent = globalStakedTokens;
+            document.getElementById("userStakedTokens").textContent = userStakedTokens;
+
+            // Deshabilitar el botón de retirar
+            document.getElementById("unstakeTokens").disabled = true;
+        } catch (err) {
+            console.error("Unstaking failed", err);
+            stakingMessage.style.color = "red";
+            stakingMessage.textContent = "Unstaking failed. Please try again.";
+        }
+    });
+</script>
+
     <div class="section">
         <img src="bitconnect2-logo.png" alt="Tokenomics Logo">
         <h2>Tokenomics</h2>
