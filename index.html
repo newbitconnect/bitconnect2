@@ -172,11 +172,13 @@ button:hover {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.8.0/web3.min.js"></script>
 <script>
-    let walletAddress = null;
-    const tokenRate = 1000; // 1 SOL = 1000 tokens
-    const adminWallet = "YOUR_ADMIN_WALLET_PUBLIC_KEY"; // Replace with your wallet address
+    const adminWallet = "YOUR_ADMIN_WALLET_PUBLIC_KEY"; // Reemplaza con la dirección de tu wallet administradora
+    const tokenMintAddress = "YOUR_TOKEN_MINT_ADDRESS"; // Dirección del contrato del token SPL
+    const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
 
-    // Conectar la wallet
+    let walletAddress = null;
+
+    // Conectar la wallet del usuario
     document.getElementById('connectWallet').addEventListener('click', async () => {
         if (window.solana) {
             try {
@@ -193,7 +195,7 @@ button:hover {
         }
     });
 
-    // Comprar tokens
+    // Comprar tokens y enviar automáticamente
     document.getElementById('buyTokens').addEventListener('click', async () => {
         const solAmount = document.getElementById('solAmount').value;
         const transactionMessage = document.getElementById('transactionMessage');
@@ -205,10 +207,9 @@ button:hover {
         }
 
         try {
-            const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
+            // Enviar SOL a la wallet administradora
             const fromPublicKey = new solanaWeb3.PublicKey(walletAddress);
             const toPublicKey = new solanaWeb3.PublicKey(adminWallet);
-
             const transaction = new solanaWeb3.Transaction().add(
                 solanaWeb3.SystemProgram.transfer({
                     fromPubkey: fromPublicKey,
@@ -220,15 +221,58 @@ button:hover {
             const signature = await window.solana.signAndSendTransaction(transaction);
             transactionMessage.style.color = 'green';
             transactionMessage.textContent = `Transaction successful! Tx: ${signature}`;
+            console.log(`SOL Transaction Signature: ${signature}`);
 
-            // Opcional: Lógica para enviar tokens al usuario aquí
+            // Calcular la cantidad de tokens a enviar
+            const tokenAmount = solAmount * 1000; // Reemplaza 1000 por la tasa de tu token
+
+            // Enviar tokens SPL al usuario
+            await transferTokens(walletAddress, tokenAmount);
+            transactionMessage.textContent += ` | ${tokenAmount} tokens sent successfully!`;
         } catch (err) {
             console.error('Transaction failed', err);
             transactionMessage.style.color = 'red';
             transactionMessage.textContent = "Transaction failed. Please try again.";
         }
     });
+
+    // Función para transferir tokens SPL
+    async function transferTokens(toAddress, amount) {
+        const fromWallet = solanaWeb3.Keypair.fromSecretKey(Uint8Array.from(YOUR_SECRET_KEY_ARRAY)); // Reemplaza con tu clave secreta
+        const toPublicKey = new solanaWeb3.PublicKey(toAddress);
+        const tokenMint = new solanaWeb3.PublicKey(tokenMintAddress);
+
+        const fromTokenAccount = await solanaWeb3.Token.getOrCreateAssociatedTokenAccount(
+            connection,
+            fromWallet,
+            tokenMint,
+            fromWallet.publicKey
+        );
+
+        const toTokenAccount = await solanaWeb3.Token.getOrCreateAssociatedTokenAccount(
+            connection,
+            fromWallet,
+            tokenMint,
+            toPublicKey
+        );
+
+        const transaction = new solanaWeb3.Transaction().add(
+            solanaWeb3.Token.createTransferInstruction(
+                solanaWeb3.TOKEN_PROGRAM_ID,
+                fromTokenAccount.address,
+                toTokenAccount.address,
+                fromWallet.publicKey,
+                [],
+                amount
+            )
+        );
+
+        const signature = await solanaWeb3.sendAndConfirmTransaction(connection, transaction, [fromWallet]);
+        console.log(`Token Transfer Signature: ${signature}`);
+        return signature;
+    }
 </script>
+
 
     <div class="section">
     <h2>Token Calculator</h2>
