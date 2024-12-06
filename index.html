@@ -253,125 +253,58 @@ button:hover {
         💰 Get Your Free Tokens
     </button>
 </div>
-
-   <div class="section">
-    <h2>Airdrop: Claim Your Free Tokens!</h2>
-    <p>Complete the form below to join the airdrop and receive free Bitconnect 2.0 tokens!</p>
-    <p id="airdropCounter" style="font-size: 1.2em; color: #007bff;">
-        Remaining Spots: <span id="remainingSpots">10000</span>
+<div class="section" id="airdrop-section" style="background-color: #f9f9f9; padding: 40px 20px; margin: 20px auto; max-width: 1200px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <!-- Título -->
+    <h2 style="text-align: center; font-size: 2.5em; font-weight: bold; color: #333; margin-bottom: 20px;">🎁 Airdrop 2025: Claim Your Free Tokens!</h2>
+    
+    <!-- Descripción clara -->
+    <p style="font-size: 1.5em; color: #555; line-height: 1.8; text-align: center; margin-bottom: 30px;">
+        Be part of the Bitconnect 2.0 revolution! Participate in our exclusive <b>airdrop</b> and get your free tokens today. 🚀<br>
+        All you need to do is follow the steps below to secure your spot. Don't miss out—only a limited supply is available!
     </p>
-    <form id="airdropForm">
-        <input type="text" id="name" placeholder="Your Name" required style="padding: 10px; width: 100%; margin-bottom: 10px;">
-        <input type="text" id="wallet" placeholder="Your Wallet Address" required style="padding: 10px; width: 100%; margin-bottom: 10px;">
-        <button type="submit" class="button">Claim Tokens</button>
-    </form>
-    <p id="airdropMessage" style="margin-top: 20px; font-size: 1.2em;"></p>
+
+    <!-- Instrucciones paso a paso -->
+    <div style="text-align: left; margin-bottom: 30px;">
+        <h3 style="font-size: 2em; font-weight: bold; color: #007bff; margin-bottom: 15px;">📋 How to Participate:</h3>
+        <ul style="font-size: 1.2em; color: #555; line-height: 1.8; margin-left: 20px;">
+            <li>1️⃣ Follow us on <a href="#" style="color: #007bff; text-decoration: underline;">Twitter</a> and <a href="#" style="color: #007bff; text-decoration: underline;">Telegram</a>.</li>
+            <li>2️⃣ Share our content or post about the Airdrop using the hashtag <b>#BitconnectAirdrop</b>.</li>
+            <li>3️⃣ Fill in the registration form with your Solana wallet address.</li>
+        </ul>
+    </div>
+
+    <!-- Formulario de Registro -->
+    <div style="background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 30px;">
+        <h3 style="text-align: center; font-size: 1.8em; font-weight: bold; color: #333; margin-bottom: 20px;">📝 Registration Form</h3>
+        <form action="#" method="POST" style="display: flex; flex-direction: column; gap: 20px; max-width: 600px; margin: 0 auto;">
+            <input type="text" name="name" placeholder="Enter your full name" required style="padding: 15px; font-size: 1.2em; border: 1px solid #ccc; border-radius: 10px;">
+            <input type="email" name="email" placeholder="Enter your email address" required style="padding: 15px; font-size: 1.2em; border: 1px solid #ccc; border-radius: 10px;">
+            <input type="text" name="wallet" placeholder="Enter your Solana wallet address" required style="padding: 15px; font-size: 1.2em; border: 1px solid #ccc; border-radius: 10px;">
+            <button type="submit" style="background-color: #28a745; color: #fff; padding: 15px; font-size: 1.5em; border: none; border-radius: 10px; cursor: pointer; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+                🚀 Claim Your Tokens
+            </button>
+        </form>
+    </div>
+
+    <!-- Contador de Participantes -->
+    <div style="text-align: center;">
+        <p style="font-size: 1.5em; color: #333; margin-bottom: 10px;">🌟 Current Participants: <span id="participants-counter" style="color: #007bff; font-weight: bold;">2,341</span></p>
+        <p style="font-size: 1.5em; color: #333;">🪙 Tokens Remaining: <span id="tokens-remaining" style="color: #ff5722; font-weight: bold;">15,000,000</span></p>
+    </div>
 </div>
 
-
+<!-- Script para el contador (simulación básica) -->
 <script>
-    const adminWallet = "YOUR_ADMIN_WALLET_PUBLIC_KEY"; // Wallet administradora
-    const tokenMintAddress = "YOUR_TOKEN_MINT_ADDRESS"; // Dirección del contrato del token SPL
-    const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
-    const airdropAmount = 100; // Tokens por participante
-    const maxParticipants = 10000; // Límite de participantes
-    let currentParticipants = 0; // Contador de participantes
+    // Simulación del contador en tiempo real
+    const participantsCounter = document.getElementById("participants-counter");
+    const tokensRemaining = document.getElementById("tokens-remaining");
 
-    const claimedWallets = new Set(); // Para evitar duplicados
-
-    // Actualizar contador inicial
-    document.getElementById("remainingSpots").textContent = maxParticipants - currentParticipants;
-
-    document.getElementById("airdropForm").addEventListener("submit", async function(event) {
-        event.preventDefault();
-        const airdropMessage = document.getElementById("airdropMessage");
-        const remainingSpots = document.getElementById("remainingSpots");
-        const name = document.getElementById("name").value.trim();
-        const walletAddress = document.getElementById("wallet").value.trim();
-
-        // Validar campos vacíos
-        if (!name || !walletAddress) {
-            airdropMessage.style.color = "red";
-            airdropMessage.textContent = "Please fill out all fields.";
-            return;
-        }
-
-        // Validar formato de wallet
-        try {
-            new solanaWeb3.PublicKey(walletAddress); // Intenta crear un objeto de PublicKey
-        } catch (err) {
-            airdropMessage.style.color = "red";
-            airdropMessage.textContent = "Invalid wallet address.";
-            return;
-        }
-
-        // Validar límite de participantes
-        if (currentParticipants >= maxParticipants) {
-            airdropMessage.style.color = "red";
-            airdropMessage.textContent = "Airdrop limit reached. Thank you for your interest!";
-            return;
-        }
-
-        // Validar si la wallet ya participó
-        if (claimedWallets.has(walletAddress)) {
-            airdropMessage.style.color = "red";
-            airdropMessage.textContent = "This wallet has already claimed tokens.";
-            return;
-        }
-
-        try {
-            // Transferir tokens SPL al participante
-            const signature = await transferTokens(walletAddress, airdropAmount);
-            currentParticipants++;
-            claimedWallets.add(walletAddress);
-
-            // Actualizar contador visual
-            remainingSpots.textContent = maxParticipants - currentParticipants;
-
-            airdropMessage.style.color = "green";
-            airdropMessage.textContent = `Airdrop successful! ${airdropAmount} tokens sent. Tx: ${signature}`;
-        } catch (err) {
-            console.error("Airdrop failed", err);
-            airdropMessage.style.color = "red";
-            airdropMessage.textContent = "Airdrop failed. Please try again.";
-        }
-    });
-
-    // Función para transferir tokens SPL
-    async function transferTokens(toAddress, amount) {
-        const fromWallet = solanaWeb3.Keypair.fromSecretKey(Uint8Array.from(YOUR_SECRET_KEY_ARRAY)); // Clave secreta del administrador
-        const toPublicKey = new solanaWeb3.PublicKey(toAddress);
-        const tokenMint = new solanaWeb3.PublicKey(tokenMintAddress);
-
-        const fromTokenAccount = await solanaWeb3.Token.getOrCreateAssociatedTokenAccount(
-            connection,
-            fromWallet,
-            tokenMint,
-            fromWallet.publicKey
-        );
-
-        const toTokenAccount = await solanaWeb3.Token.getOrCreateAssociatedTokenAccount(
-            connection,
-            fromWallet,
-            tokenMint,
-            toPublicKey
-        );
-
-        const transaction = new solanaWeb3.Transaction().add(
-            solanaWeb3.Token.createTransferInstruction(
-                solanaWeb3.TOKEN_PROGRAM_ID,
-                fromTokenAccount.address,
-                toTokenAccount.address,
-                fromWallet.publicKey,
-                [],
-                amount
-            )
-        );
-
-        const signature = await solanaWeb3.sendAndConfirmTransaction(connection, transaction, [fromWallet]);
-        console.log(`Token Transfer Signature: ${signature}`);
-        return signature;
-    }
+    setInterval(() => {
+        const participants = parseInt(participantsCounter.textContent.replace(",", ""));
+        const remaining = parseInt(tokensRemaining.textContent.replace(",", ""));
+        participantsCounter.textContent = (participants + Math.floor(Math.random() * 5)).toLocaleString();
+        tokensRemaining.textContent = (remaining - Math.floor(Math.random() * 100)).toLocaleString();
+    }, 3000); // Actualiza cada 3 segundos
 </script>
 
 
