@@ -332,95 +332,38 @@ button:hover {
         </ul>
     </div>
 </div>
-
-    <div class="section">
-    <h2>Stake Your Tokens</h2>
-    <p style="font-size: 1em; color: #555;">
-        Stake your Bitconnect 2.0 tokens to earn up to <b>10% annual rewards</b>. Start earning passive income while supporting the network. <span style="color: #007bff;">Staking functionality will be available soon!</span>
+<div class="section" id="staking-section" style="background-color: #ffffff; padding: 40px 20px; margin: 20px auto; max-width: 1200px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <!-- Título -->
+    <h2 style="text-align: center; font-size: 2.5em; font-weight: bold; color: #333; margin-bottom: 20px;">💎 Staking: Earn Rewards with Your Tokens</h2>
+    
+    <!-- Descripción -->
+    <p style="font-size: 1.5em; color: #555; line-height: 1.8; text-align: center; margin-bottom: 30px;">
+        Soon, you'll be able to stake your Bitconnect 2.0 tokens and earn rewards while contributing to the stability and growth of the ecosystem. Staking will follow a transparent vesting schedule to ensure fairness and sustainability.
     </p>
-    <p id="globalStakingCounter" style="font-size: 1.2em; color: #007bff;">
-        Total Staked Globally: <span id="globalStakedTokens">0</span>
-    </p>
-    <p id="userStakingCounter" style="font-size: 1.2em; color: #007bff;">
-        Your Staked Tokens: <span id="userStakedTokens">0</span>
-    </p>
-    <input type="number" id="stakeAmount" placeholder="Enter tokens to stake" style="padding: 10px; width: 200px;" disabled>
-    <button id="stakeTokens" class="button" disabled>Stake Tokens</button>
-    <button id="unstakeTokens" class="button" disabled>Unstake Tokens</button>
-    <p id="stakingMessage" style="margin-top: 20px; font-size: 1.2em;"></p>
+    
+    <!-- Detalles del Vesting -->
+    <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 30px;">
+        <h3 style="text-align: center; font-size: 1.8em; font-weight: bold; color: #007bff; margin-bottom: 20px;">📋 Vesting Schedule</h3>
+        <ul style="font-size: 1.2em; color: #555; line-height: 1.8; margin-left: 20px; text-align: left;">
+            <li>🔒 <b>10% Unlocked:</b> Tokens available upfront for staking rewards.</li>
+            <li>⏳ <b>90% Vesting Period:</b> Linear release over 12 months for sustained growth.</li>
+            <li>🏆 <b>Annual Yield:</b> Up to 10% rewards based on your staked tokens.</li>
+        </ul>
+    </div>
+    
+    <!-- Botones deshabilitados -->
+    <div style="text-align: center;">
+        <p style="font-size: 1.5em; color: #555; margin-bottom: 20px;">🚧 Staking functionality is coming soon!</p>
+        <button disabled style="background-color: #ccc; color: #fff; padding: 15px 30px; font-size: 1.5em; border: none; border-radius: 10px; cursor: not-allowed; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin: 10px;">
+            🛠 Stake Your Tokens
+        </button>
+        <button disabled style="background-color: #ccc; color: #fff; padding: 15px 30px; font-size: 1.5em; border: none; border-radius: 10px; cursor: not-allowed; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin: 10px;">
+            🏦 View Staking Dashboard
+        </button>
+    </div>
 </div>
 
-<script>
-    let globalStakedTokens = 0; // Tokens apostados globalmente
-    let userStakedTokens = 0; // Tokens apostados por el usuario actual
-
-    document.getElementById("globalStakedTokens").textContent = globalStakedTokens;
-    document.getElementById("userStakedTokens").textContent = userStakedTokens;
-
-    // Función para apostar tokens
-    document.getElementById("stakeTokens").addEventListener("click", async () => {
-        const stakeAmount = parseInt(document.getElementById("stakeAmount").value, 10);
-        const stakingMessage = document.getElementById("stakingMessage");
-
-        if (!stakeAmount || stakeAmount <= 0) {
-            stakingMessage.style.color = "red";
-            stakingMessage.textContent = "Please enter a valid amount of tokens to stake.";
-            return;
-        }
-
-        // Simular la operación de staking
-        try {
-            userStakedTokens += stakeAmount;
-            globalStakedTokens += stakeAmount;
-
-            // Actualizar contadores visuales
-            document.getElementById("globalStakedTokens").textContent = globalStakedTokens;
-            document.getElementById("userStakedTokens").textContent = userStakedTokens;
-
-            // Habilitar el botón de retirar (unstake) si el usuario ha apostado tokens
-            document.getElementById("unstakeTokens").disabled = userStakedTokens === 0;
-
-            stakingMessage.style.color = "green";
-            stakingMessage.textContent = `Successfully staked ${stakeAmount} tokens!`;
-        } catch (err) {
-            console.error("Staking failed", err);
-            stakingMessage.style.color = "red";
-            stakingMessage.textContent = "Staking failed. Please try again.";
-        }
-    });
-
-    // Función para retirar tokens apostados
-    document.getElementById("unstakeTokens").addEventListener("click", async () => {
-        const stakingMessage = document.getElementById("stakingMessage");
-
-        if (userStakedTokens <= 0) {
-            stakingMessage.style.color = "red";
-            stakingMessage.textContent = "You have no staked tokens to unstake.";
-            return;
-        }
-
-        // Simular la operación de retirar staking
-        try {
-            globalStakedTokens -= userStakedTokens;
-
-            stakingMessage.style.color = "green";
-            stakingMessage.textContent = `Successfully unstaked ${userStakedTokens} tokens!`;
-
-            userStakedTokens = 0;
-
-            // Actualizar contadores visuales
-            document.getElementById("globalStakedTokens").textContent = globalStakedTokens;
-            document.getElementById("userStakedTokens").textContent = userStakedTokens;
-
-            // Deshabilitar el botón de retirar
-            document.getElementById("unstakeTokens").disabled = true;
-        } catch (err) {
-            console.error("Unstaking failed", err);
-            stakingMessage.style.color = "red";
-            stakingMessage.textContent = "Unstaking failed. Please try again.";
-        }
-    });
-</script>
+    
 <div class="section">
     <h2>Exclusive NFTs - Coming Soon!</h2>
     <p style="font-size: 1em; color: #555;">
