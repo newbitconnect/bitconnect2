@@ -305,24 +305,11 @@ button:hover {
 
     <!-- Contador de Participantes -->
     <div style="text-align: center;">
-        <p style="font-size: 1.5em; color: #333; margin-bottom: 10px;">🌟 Current Participants: <span id="participants-counter" style="color: #007bff; font-weight: bold;">2,341</span></p>
-        <p style="font-size: 1.5em; color: #333;">🪙 Tokens Remaining: <span id="tokens-remaining" style="color: #ff5722; font-weight: bold;">15,000,000</span></p>
+        <p style="font-size: 1.5em; color: #333; margin-bottom: 10px;">🌟 Current Participants: <span id="participants-counter" style="color: #007bff; font-weight: bold;">0</span></p>
+        <p style="font-size: 1.5em; color: #333;">🪙 Tokens Remaining: <span id="tokens-remaining" style="color: #ff5722; font-weight: bold;">14,000,000</span></p>
     </div>
 </div>
 
-<!-- Script para el contador (simulación básica) -->
-<script>
-    // Simulación del contador en tiempo real
-    const participantsCounter = document.getElementById("participants-counter");
-    const tokensRemaining = document.getElementById("tokens-remaining");
-
-    setInterval(() => {
-        const participants = parseInt(participantsCounter.textContent.replace(",", ""));
-        const remaining = parseInt(tokensRemaining.textContent.replace(",", ""));
-        participantsCounter.textContent = (participants + Math.floor(Math.random() * 5)).toLocaleString();
-        tokensRemaining.textContent = (remaining - Math.floor(Math.random() * 100)).toLocaleString();
-    }, 3000); // Actualiza cada 3 segundos
-</script>
     <div style="background-color: #ffe6e6; color: #cc0000; padding: 20px; margin: 20px auto; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); max-width: 800px;">
     <h3 style="font-size: 1.5em; font-weight: bold; margin-bottom: 10px;">⚠️ Disclaimer</h3>
     <p style="font-size: 1.2em; margin: 0;">
