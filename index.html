@@ -19,6 +19,47 @@
     <link rel="icon" href="bitconnect2-logo.ico" type="image/x-icon">
     <title>Bitconnect 2.0 - The Meme Token Renaissance</title>
     <style>
+        /* Botón flotante general */
+.floating-button {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  background-color: #e4a73b;
+  color: #0e0c1c;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  z-index: 1000;
+}
+
+/* Botón para volver al inicio */
+#scrollToTop {
+  bottom: 80px; /* Espaciado inferior */
+  right: 20px; /* Espaciado derecho */
+}
+
+/* Botón para Telegram */
+#telegramButton {
+  bottom: 20px; /* Espaciado inferior */
+  right: 20px; /* Espaciado derecho */
+  background-color: #0088cc; /* Color típico de Telegram */
+  color: #ffffff;
+}
+
+.floating-button:hover {
+  transform: scale(1.1); /* Efecto de zoom al pasar el cursor */
+}
+
+#telegramButton:hover {
+  background-color: #005f8c; /* Color más oscuro al pasar el cursor */
+}
+
         .section {
     margin-bottom: 40px;
 }
@@ -658,6 +699,6 @@ button:hover {
 <a href="https://t.me/bitconnect2" target="_blank" id="telegramButton" class="floating-button telegram-button">
   💬
 </a>
- 
+ <script src="scripts.js"></script>
 </body>
 </html>
