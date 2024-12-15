@@ -1,0 +1,211 @@
+/* General */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background-color: #f4f4f4;
+}
+
+p {
+  line-height: 1.5;
+}
+
+/* Botones flotantes */
+.floating-button {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  background-color: #e4a73b;
+  color: #0e0c1c;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  z-index: 1000;
+}
+
+#scrollToTop {
+  bottom: 80px;
+  right: 20px;
+}
+
+#telegramButton {
+  bottom: 20px;
+  right: 20px;
+  background-color: #0088cc;
+  color: #ffffff;
+}
+
+.floating-button:hover {
+  transform: scale(1.1);
+}
+
+#telegramButton:hover {
+  background-color: #005f8c;
+}
+
+/* Encabezado */
+header {
+  background-color: #ffcc00;
+  padding: 20px;
+  animation: fadeIn 2s ease-in-out;
+}
+
+header img {
+  width: 150px;
+  border-radius: 50%;
+  animation: spin 10s linear infinite;
+}
+
+header h1 {
+  font-size: 2.5em;
+  color: #333;
+  animation: slideDown 1.5s ease-in-out;
+}
+
+header p {
+  font-size: 1.2em;
+  color: #555;
+}
+
+/* Secciones */
+.section {
+  padding: 20px;
+  margin: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 2s ease-in-out;
+}
+
+.section h2 {
+  font-size: 1.5em;
+  color: #333;
+}
+
+.section img {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.section img:hover {
+  transform: scale(1.05);
+}
+
+/* Galería de Memes */
+#memeGallery img {
+  transition: transform 0.3s ease;
+}
+
+#memeGallery img:hover {
+  transform: scale(1.05);
+}
+
+#memes p {
+  margin-top: 5px;
+  font-style: italic;
+}
+
+/* Formularios */
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+input {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+/* Botones */
+button,
+.button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+button:hover:enabled,
+.button:hover {
+  background-color: #0056b3;
+  transform: scale(1.1);
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Mensajes y Placeholders */
+.opacity-placeholder {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#stakingMessage,
+#formMessage {
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+/* Footer */
+footer {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+}
+
+footer a {
+  color: #ffcc00;
+  text-decoration: none;
+}
+
+/* Animaciones */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
