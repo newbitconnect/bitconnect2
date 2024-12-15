@@ -101,6 +101,60 @@ header p {
   transform: scale(1.05);
 }
 
+/* Participación */
+.participate-section {
+  text-align: center; /* Texto centrado */
+}
+
+.participate-section h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.participate-section p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* Contenedor de los pasos */
+.participation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra el contenido horizontalmente */
+  gap: 20px;
+}
+
+.participation-step {
+  background: #f4f4f4;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 5px solid #e4a73b;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  text-align: left; /* Alinea el texto internamente */
+  max-width: 600px;
+  width: 100%; /* Asegura que se adapte al contenedor */
+}
+
+.participation-step p {
+  font-size: 1rem;
+  color: #555;
+  margin: 0;
+  text-align: center; /* Centra el texto */
+}
+
+/* Enlaces */
+.participation-step a {
+  color: #e4a73b;
+  text-decoration: none;
+}
+
+.participation-step a:hover {
+  color: #c59130;
+}
+
+
 /* Galería de Memes */
 #memeGallery img {
   transition: transform 0.3s ease;
